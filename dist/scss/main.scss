@@ -1,5 +1,16 @@
-// General Styling
+// Color Variables
+$primary-color: rgba(241, 242, 246, 1);
+$primary-color-dark: rgba(241, 242, 246, 0.05);
+$secondary-color: #5c9ddd;
+$background-color: rgba(28, 29, 33, 1);
+$background-color-light: rgba(28, 29, 33, 0.5);
+$background-gradient: linear-gradient(
+  90deg,
+  rgba(28, 29, 33, 0.9) 20%,
+  rgba(28, 29, 33, 0.6) 100%
+);
 
+// General Styling
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,15 +19,168 @@
 
 body {
   position: relative;
-  background-color: $light-color;
-  font-family: 'Montserrat', sans-serif;
+  background-color: $background-color;
+  font-family: "Montserrat", sans-serif;
+  color: $primary-color;
 }
 
 a {
   text-decoration: none;
+  color: $primary-color;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
 }
 
 .container {
-  max-width: 956px;
+  max-width: 1120px;
   margin: 0 auto;
+  padding: 0 3rem;
+}
+
+// Header Styling
+
+header {
+  .navbar {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+
+    .brand {
+      padding: 1rem 0;
+
+      .logo {
+        width: 4rem;
+      }
+    }
+
+    .nav_list {
+      list-style: none;
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      align-items: center;
+      height: auto;
+      width: 100%;
+      margin-right: 0;
+
+      .nav_item {
+        padding: 2rem;
+        font-size: 0.875rem;
+
+        &:hover {
+          background: $primary-color;
+          color: $background-color;
+        }
+      }
+
+      .active {
+        background: $primary-color-dark;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+// Showcase Styling
+
+.showcase {
+  flex: 1 1 auto;
+  position: relative;
+
+  &_background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: center center url(../images/home_background.png);
+
+    &:before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: $background-gradient;
+    }
+  }
+
+  &_content {
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .intro_text {
+      font-size: 4rem;
+      width: 50%;
+      margin-bottom: 2rem;
+    }
+
+    .sub_text {
+      font-size: 1.25rem;
+      width: 65%;
+      margin-bottom: 2rem;
+    }
+
+    .cta_btn {
+      padding: 1rem;
+      font-weight: 600;
+      align-self: flex-start;
+      background: $secondary-color;
+      color: $primary-color;
+      border-radius: 0.25rem;
+
+      &:hover {
+        background: $primary-color;
+        color: $background-color;
+      }
+    }
+  }
+}
+
+// Footer Styling
+
+footer {
+  padding: 2rem 0;
+  font-size: 0.75rem;
+
+  .container {
+    display: flex;
+
+    .disclaimer,
+    .related_links {
+      width: 50%;
+    }
+
+    .disclaimer p {
+      padding: 0.5rem 0;
+    }
+
+    .related_links {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+
+      .footer_link {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem;
+        border-right: 1px solid $primary-color;
+
+        &:last-child {
+          border-right: none;
+        }
+
+        i {
+          padding-right: 0.5rem;
+        }
+      }
+    }
+  }
 }
