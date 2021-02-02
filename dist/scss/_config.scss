@@ -1,0 +1,46 @@
+// Fonts
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+$roboto: "Roboto", serif;
+
+// Colors
+
+$primary-color: rgba(241, 242, 246, 1);
+$secondary-color: rgba(55, 144, 187, 1);
+$dark-color: rgba(28, 29, 33, 1);
+$dark-color-transparent: rgba(28, 29, 33, 0.9);
+
+// Background
+
+$background-gradient: linear-gradient(
+  90deg,
+  rgba(28, 29, 33, 0.95) 20%,
+  rgba(28, 29, 33, 0.5) 60%,
+  rgba(55, 144, 187, 0.5) 100%
+);
+
+$background-image: url(../images/home_background.jpg);
+
+// Breakpoints
+
+$desktop: 993px;
+$laptop: 769px;
+$tablet: 577px;
+
+@mixin desktop {
+  @media (min-width: #{$desktop}) {
+    @content;
+  }
+}
+
+@mixin laptop {
+  @media (min-width: #{$laptop}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$tablet}) {
+    @content;
+  }
+}

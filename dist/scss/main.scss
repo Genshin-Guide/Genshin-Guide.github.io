@@ -1,16 +1,10 @@
-// Color Variables
-$primary-color: rgba(241, 242, 246, 1);
-$primary-color-dark: rgba(241, 242, 246, 0.05);
-$secondary-color: #5c9ddd;
-$background-color: rgba(28, 29, 33, 1);
-$background-color-light: rgba(28, 29, 33, 0.5);
-$background-gradient: linear-gradient(
-  90deg,
-  rgba(28, 29, 33, 0.9) 20%,
-  rgba(28, 29, 33, 0.6) 100%
-);
+// SCSS Imports
+
+@import "config";
+@import "utilities";
 
 // General Styling
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -19,9 +13,11 @@ $background-gradient: linear-gradient(
 
 body {
   position: relative;
-  background-color: $background-color;
-  font-family: "Montserrat", sans-serif;
+  background-color: $dark-color;
+  font-family: $roboto;
+  line-height: 1.3;
   color: $primary-color;
+  letter-spacing: 1px;
 }
 
 a {
@@ -29,29 +25,20 @@ a {
   color: $primary-color;
 }
 
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  width: 100%;
-}
-
-.container {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 0 3rem;
-}
-
 // Header Styling
 
 header {
+  // position: relative;
+
   .navbar {
-    display: flex;
-    flex-direction: row;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
     .brand {
       padding: 1rem 0;
+      z-index: 2;
 
       .logo {
         width: 4rem;
@@ -59,28 +46,89 @@ header {
     }
 
     .nav_list {
-      list-style: none;
+      position: absolute;
+      top: 75px;
+      left: 0;
       display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      height: auto;
+      transform: translateY(-120%);
       width: 100%;
-      margin-right: 0;
+      z-index: 1;
+      background: $dark-color-transparent;
+      transition: transform 300ms ease;
 
       .nav_item {
-        padding: 2rem;
+        padding: 2rem 1rem;
         font-size: 0.875rem;
+        width: 100%;
+        text-align: center;
+        transition: background-color 200ms ease;
 
         &:hover {
-          background: $primary-color;
-          color: $background-color;
+          background: darken($secondary-color, 20%);
         }
       }
 
       .active {
-        background: $primary-color-dark;
+        background: lighten($dark-color, 7%);
         font-weight: 600;
+      }
+    }
+
+    #menu_toggler {
+      position: absolute;
+      right: 1rem;
+      z-index: 3;
+      cursor: pointer;
+      width: 2rem;
+      height: 2rem;
+      opacity: 0;
+
+      &:checked + div.hamburger_icon > div {
+        transform: rotate(135deg);
+
+        &:before,
+        &:after {
+          top: 0;
+          transform: rotate(90deg);
+        }
+      }
+
+      &:checked ~ div.nav_list {
+        transform: translateY(0);
+      }
+    }
+
+    .hamburger_icon {
+      position: absolute;
+      right: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+
+      div {
+        position: relative;
+        background-color: $primary-color;
+        height: 3px;
+        width: 2rem;
+        transition: transform, top, background-color, 300ms ease;
+
+        &:before,
+        &:after {
+          content: "";
+          position: absolute;
+          top: -10px;
+          width: 100%;
+          height: 3px;
+          background: inherit;
+        }
+
+        &:after {
+          top: 10px;
+        }
       }
     }
   }
@@ -88,9 +136,10 @@ header {
 
 // Showcase Styling
 
-.showcase {
+.content {
   flex: 1 1 auto;
   position: relative;
+  padding: 3rem 0;
 
   &_background {
     position: absolute;
@@ -98,7 +147,9 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background: center center url(../images/home_background.png);
+    background: $background-image;
+    background-position: center;
+    background-size: cover;
 
     &:before {
       content: "";
@@ -109,7 +160,7 @@ header {
     }
   }
 
-  &_content {
+  &_text {
     position: relative;
     height: 100%;
     display: flex;
@@ -117,28 +168,26 @@ header {
     justify-content: center;
 
     .intro_text {
-      font-size: 4rem;
-      width: 50%;
+      font-size: 2.5rem;
       margin-bottom: 2rem;
     }
 
     .sub_text {
-      font-size: 1.25rem;
-      width: 65%;
+      font-size: 1rem;
       margin-bottom: 2rem;
     }
 
-    .cta_btn {
-      padding: 1rem;
-      font-weight: 600;
+    .btn_cta {
       align-self: flex-start;
+      padding: 1rem;
+      font-size: 0.875rem;
       background: $secondary-color;
-      color: $primary-color;
       border-radius: 0.25rem;
+      transition: transform, background-color, 200ms ease;
 
       &:hover {
-        background: $primary-color;
-        color: $background-color;
+        background: darken($secondary-color, 10%);
+        transform: scale(0.99);
       }
     }
   }
@@ -147,44 +196,54 @@ header {
 // Footer Styling
 
 footer {
-  padding: 2rem 0;
+  padding: 1.5rem 0;
   font-size: 0.75rem;
 
   .container {
     display: flex;
+    flex-direction: column;
+  }
 
-    .disclaimer,
-    .related_links {
-      width: 50%;
-    }
+  .disclaimer {
+    margin-bottom: 1rem;
 
-    .disclaimer p {
+    p {
       padding: 0.5rem 0;
     }
+  }
 
-    .related_links {
-      display: flex;
-      align-items: center;
-      justify-content: space-around;
+  .related_links {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
 
-      .footer_link {
-        width: 100%;
-        text-align: center;
-        padding: 0.75rem;
-        border-right: 1px solid $primary-color;
+  .footer_link {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem;
+    transition: color 100ms ease-out;
 
-        &:hover {
-          color: $secondary-color;
-        }
+    &:hover {
+      color: $secondary-color;
+    }
 
-        &:last-child {
-          border-right: none;
-        }
+    &:last-child {
+      border-right: none;
+    }
 
-        i {
-          padding-right: 0.5rem;
-        }
-      }
+    i {
+      padding-right: 0.5rem;
     }
   }
+
+  .line {
+    height: 2rem;
+    width: 1px;
+    background: $primary-color;
+  }
 }
+
+// Media Query Import
+
+@import "mediaqueries";

@@ -1,0 +1,71 @@
+@include tablet {
+  .content {
+    .intro_text {
+      font-size: 3rem;
+    }
+
+    .sub_text {
+      font-size: 1rem;
+    }
+
+    .btn_cta {
+      font-size: 1rem;
+      padding: 1rem 3rem;
+    }
+  }
+}
+
+@include laptop {
+  header {
+    .navbar {
+      .nav_list {
+        position: relative;
+        top: 0;
+        flex-direction: row;
+        transform: translateY(0);
+        background: none;
+        justify-content: flex-end;
+
+        .nav_item {
+          width: auto;
+        }
+      }
+
+      #menu_toggler,
+      .hamburger_icon {
+        display: none;
+      }
+    }
+  }
+
+  .content {
+    padding: 0;
+
+    .intro_text {
+      font-size: 4rem;
+      width: 60%;
+    }
+
+    .sub_text {
+      font-size: 1.25rem;
+      width: 65%;
+    }
+  }
+
+  footer {
+    padding: 2rem 0;
+
+    .container {
+      flex-direction: row;
+    }
+
+    .disclaimer,
+    .related_links {
+      width: 50%;
+    }
+
+    .disclaimer {
+      margin-bottom: 0;
+    }
+  }
+}
